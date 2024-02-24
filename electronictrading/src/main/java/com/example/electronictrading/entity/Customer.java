@@ -1,5 +1,8 @@
 package com.example.electronictrading.entity;
 
+import com.example.electronictrading.serializer.CustomerSerializer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,6 +13,7 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -17,6 +21,7 @@ import java.util.Date;
 @Builder
 @Entity
 @Table(name = "customer")
+@JsonSerialize(using = CustomerSerializer.class)
 public class Customer extends BaseEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,6 +38,9 @@ public class Customer extends BaseEntity implements Serializable {
     @NotNull(message = "e-mail for customer can't be null")
     @Column(name="e_mail")
     private  String eMail;
+
+    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
+    private Cart cart;
 
     @NotNull(message = "phone number for customer can't be null")
     @Column(name="phone_number")

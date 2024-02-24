@@ -1,7 +1,7 @@
 package com.example.electronictrading.controller;
 
 import com.example.electronictrading.entity.Product;
-import com.example.electronictrading.service.impl.ProductService;
+import com.example.electronictrading.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;

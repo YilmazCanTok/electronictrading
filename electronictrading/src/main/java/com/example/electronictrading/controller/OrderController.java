@@ -2,7 +2,7 @@ package com.example.electronictrading.controller;
 
 import com.example.electronictrading.entity.Order;
 import com.example.electronictrading.entity.Customer;
-import com.example.electronictrading.service.impl.OrderService;
+import com.example.electronictrading.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -17,11 +17,6 @@ import java.util.List;
 @RequestMapping("/api/order")
 public class OrderController {
     private final OrderService orderService;
-
-    @PostMapping("/place")
-    public Order placeOrder(@Valid @RequestBody Order order) {
-        return orderService.placeOrder(order);
-    }
 
     @GetMapping("/code/{orderCode}")
     public Order getOrderForCode(@PathVariable String orderCode) {

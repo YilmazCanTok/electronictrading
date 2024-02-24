@@ -1,4 +1,5 @@
-CREATE TABLE IF NOT EXISTS Customer (
+/*
+CREATE TABLE IF NOT EXISTS customer (
                                         id INT AUTO_INCREMENT PRIMARY KEY,
                                         first_name VARCHAR(255) NOT NULL,
                                         last_name VARCHAR(255) NOT NULL,
@@ -11,7 +12,7 @@ CREATE TABLE IF NOT EXISTS Customer (
                                         updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-CREATE TABLE IF NOT EXISTS Product (
+CREATE TABLE IF NOT EXISTS product (
                                        id INT AUTO_INCREMENT PRIMARY KEY,
                                        name VARCHAR(255) NOT NULL,
                                        brand VARCHAR(255) NOT NULL,
@@ -22,13 +23,15 @@ CREATE TABLE IF NOT EXISTS Product (
                                        updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-CREATE TABLE IF NOT EXISTS Cart (
-                                    id INT AUTO_INCREMENT PRIMARY KEY,
-                                    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                                    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+CREATE TABLE IF NOT EXISTS cart (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    customer_id INT,
+    total_price DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (customer_id) REFERENCES Customer(id)
 );
-
-CREATE TABLE IF NOT EXISTS OrderTable (
+CREATE TABLE IF NOT EXISTS ordertable (
                                           id INT AUTO_INCREMENT PRIMARY KEY,
                                           customer_id INT NOT NULL,
                                           cart_id INT NOT NULL,
@@ -40,26 +43,32 @@ CREATE TABLE IF NOT EXISTS OrderTable (
                                           FOREIGN KEY (cart_id) REFERENCES Cart(id)
 );
 
-INSERT INTO Customer (first_name, last_name, e_mail, phone_number, address, city) VALUES
-                                                                                     ('John', 'Smith', 'john.smith@example.com', '1234567890', '123 Main St', 'New York'),
-                                                                                     ('Emily', 'Johnson', 'emily.johnson@example.com', '0987654321', '456 Elm St', 'Los Angeles'),
-                                                                                     ('Michael', 'Williams', 'michael.williams@example.com', '9876543210', '789 Oak St', 'Chicago'),
-                                                                                     ('Sarah', 'Jones', 'sarah.jones@example.com', '0123456789', '101 Pine St', 'Houston');
-
--- Product tablosuna göre INSERT işlemleri güncellendi.
-INSERT INTO Product (name, brand, price, stock, adding_date, created_at, updated_at) VALUES
-                                                                                         ('MSI GL65 Laptop', 'MSI', 1500.00, 100, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-                                                                                         ('Lenovo ThinkPad X1 Carbon', 'Lenovo', 1800.00, 150, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-                                                                                         ('ASUS ROG Zephyrus', 'ASUS', 2000.00, 80, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-                                                                                         ('HP Spectre x360', 'HP', 1700.00, 120, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-                                                                                         ('Apple iPhone 13 Pro', 'Apple', 1200.00, 200, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-                                                                                         ('Samsung Galaxy S21', 'Samsung', 1000.00, 180, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-                                                                                         ('Google Pixel 6', 'Google', 1100.00, 150, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-                                                                                         ('OnePlus OnePlus 9', 'OnePlus', 1300.00, 100, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
-
-
-INSERT INTO Cart (created_at, updated_at) VALUES (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
-
-INSERT INTO OrderTable (customer_id, cart_id, total_price, order_code) VALUES
-                                                                           (1, 1, 2500.00, 'ORDER001'),
-                                                                           (2, 1, 3500.00, 'ORDER002');
+INSERT INTO Customer (first_name, last_name, e_mail, phone_number, address, city)
+VALUES
+    ('John', 'Smith', 'john.smith@example.com', '1234567890', '123 Main St', 'New York'),
+    ('Emily', 'Johnson', 'emily.johnson@example.com', '0987654321', '456 Elm St', 'Los Angeles'),
+    ('Michael', 'Williams', 'michael.williams@example.com', '9876543210', '789 Oak St', 'Chicago'),
+    ('Sarah', 'Jones', 'sarah.jones@example.com', '0123456789', '101 Pine St', 'Houston');
+INSERT INTO Cart (customer_id, created_at)
+SELECT id, CURRENT_TIMESTAMP
+FROM Customer;
+INSERT INTO Product (name, brand, price, stock)
+VALUES
+    ('MSI GL65 Laptop', 'MSI', 1500.00, 100),
+    ('Lenovo ThinkPad X1 Carbon', 'Lenovo', 1800.00, 150),
+    ('ASUS ROG Zephyrus', 'ASUS', 2000.00, 80),
+    ('HP Spectre x360', 'HP', 1700.00, 120),
+    ('Apple MacBook Pro', 'Apple', 2200.00, 200),
+    ('Samsung Galaxy S21 Ultra', 'Samsung', 1200.00, 180),
+    ('Google Pixel 6 Pro', 'Google', 1000.00, 150),
+    ('OnePlus 9 Pro', 'OnePlus', 1300.00, 100),
+    ('LG OLED TV', 'LG', 2500.00, 80),
+    ('Sony PlayStation 5', 'Sony', 500.00, 100),
+    ('Bosch Washing Machine', 'Bosch', 700.00, 150),
+    ('Canon EOS R5 Camera', 'Canon', 3500.00, 50),
+    ('Samsung Galaxy A52', 'Samsung', 899.99, 50),
+    ('Apple MacBook Air', 'Apple', 1299.99, 30),
+    ('LG OLED TV', 'LG', 1999.99, 20),
+    ('Siemens Washing Machine', 'Siemens', 799.99, 40),
+    ('General Mobile Android Phone', 'General Mobile', 299.99, 100);
+*/

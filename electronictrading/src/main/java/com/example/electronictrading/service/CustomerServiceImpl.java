@@ -1,4 +1,4 @@
-package com.example.electronictrading.service.impl;
+package com.example.electronictrading.service;
 
 import com.example.electronictrading.entity.Customer;
 import com.example.electronictrading.exception.NotFoundException;
