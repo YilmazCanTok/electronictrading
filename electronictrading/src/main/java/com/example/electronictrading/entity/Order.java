@@ -33,18 +33,9 @@ public class Order extends BaseEntity implements Serializable {
     @JoinColumn(name = "cart_id")
     private Cart cart;
 
-    /*@ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "order_product",
-            joinColumns = @JoinColumn(name = "order_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id")
-    )
-    private List<Product> products;*/
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
-    private Product product; // Siparişin bir ürüne bağlı olduğunu belirtmek için many-to-one ilişkisi
-
+    private Product product;
 
     @NotNull(message = "quantity cannot be null")
     private Integer quantity;
